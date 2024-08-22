@@ -31,7 +31,7 @@ app.use(cors(corsOptions));
 app.use(express.json());
 
 app.get("/", (req, res) => {
-  res.send("Welcome to the Jobcom website! Everything is working well sajith sathyan.");
+  res.send("Welcome to the Jobcom website! ");
 });
 app.use("/api/user-route", userRoute);
 app.use("/api/admin-route", adminRoute);
