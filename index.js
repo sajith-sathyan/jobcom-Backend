@@ -11,7 +11,7 @@ const socketHandler = require("./socketConnection/socketConnection");
 require("dotenv").config();
 
 const server = app.listen(8000, "localhost", () => {
-  console.log("Server is running on http://localhost:8000");
+  console.log("Server is running on http://localhost:8080");
 });
 
 const io = new Server(server, {
