@@ -23,7 +23,7 @@ socketHandler(io);
 
 
 const corsOptions = {
-  origin: '*',
+  origin: ['http://localhost:3000','https://jobcom.website'],
   credentials: true,
 };
 app.use(cors(corsOptions));
