@@ -27,11 +27,19 @@ const corsOptions = {
   credentials: true,  // This allows cookies and other credentials to be sent
   methods: ["GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS"], // Add all methods you want to allow
 };
-
-
-
-
 app.use(cors(corsOptions));
+app.options("*", cors(corsOptions));  // Allows all routes to handle OPTIONS method
+
+app.use((req, res, next) => {
+  const allowedOrigins = ["http://localhost:3000", "https://jobcom-backend.vercel.app", "https://jobcomwebsite11.pages.dev"];
+  const origin = req.headers.origin;
+  if (allowedOrigins.includes(origin)) {
+    res.header("Access-Control-Allow-Origin", origin);  // Dynamically set the allowed origin
+  }
+  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept, Authorization");
+  res.header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, PATCH, OPTIONS");
+  next();
+});
 
 
 
