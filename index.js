@@ -24,8 +24,11 @@ socketHandler(io);
 
 const corsOptions = {
   origin: ["http://localhost:3000", "https://jobcom-backend.vercel.app", "https://jobcomwebsite11.pages.dev"],
-  credentials: true,  // This will allow sending cookies or authentication headers
+  credentials: true,  // This allows cookies and other credentials to be sent
+  methods: ["GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS"], // Add all methods you want to allow
 };
+
+
 
 
 app.use(cors(corsOptions));
