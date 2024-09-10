@@ -23,9 +23,11 @@ socketHandler(io);
 
 
 const corsOptions = {
-  origin:"https://jobcom-backend.vercel.app",
+  origin: ["http://localhost:3000", "https://jobcom-backend.vercel.app"],
   credentials: true,
 };
+app.use(cors(corsOptions));
+
 app.use(cors(corsOptions));
 
 app.use(express.json());
