@@ -23,7 +23,7 @@ socketHandler(io);
 
 
 const corsOptions = {
-  origin: ['http://localhost:3000','https://jobcom.website',"https://jobcom-backend-2xy7tmrwe-sajith-sathyans-projects.vercel.app/"],
+  origin: ['http://localhost:3000','https://jobcom.website',"https://jobcom-backend.vercel.app/"],
   credentials: true,
 };
 app.use(cors(corsOptions));
