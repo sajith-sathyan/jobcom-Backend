@@ -39,7 +39,7 @@ const allowCors = (req, res, next) => {
   next();
 };
 
-// Use the CORS Middleware
+//  CORS Middleware
 app.use(allowCors);
 
 app.use(express.json());
