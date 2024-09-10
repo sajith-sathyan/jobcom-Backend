@@ -15,7 +15,12 @@ const {
 
 // Define your user routes here    job-search job-search-linkedin get-user
 userRoute.post("/register", register);
-userRoute.post("/login", login);
+userRoute.post("/login",  {
+  withCredentials: true,  // Include credentials in requests if needed
+  headers: {
+    'Access-Control-Allow-Origin': 'http://localhost:3000',
+    'Content-Type': 'application/json'
+  }, login);
 userRoute.get("/get-user", getUser);
 userRoute.post("/verify-password",  verifyPassword);
 userRoute.post("/send-data-to-interviewerLive-database",sendDataToInterviewerLiveDatabase);
