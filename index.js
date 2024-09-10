@@ -10,46 +10,47 @@ const socketHandler = require("./socketConnection/socketConnection");
 
 require("dotenv").config();
 
+// Socket.io configuration with CORS
 const server = app.listen(8000, "localhost", () => {
   console.log("Server is running on http://localhost:8000");
 });
 
 const io = new Server(server, {
-  cors: true,
+  cors: {
+    origin: ['http://localhost:3000', 'https://jobcom.website', 'https://jobcom-backend.vercel.app'],
+    credentials: true,
+  },
 });
 
 // Call the socketHandler function and pass the `io` object
 socketHandler(io);
 
-// Define a CORS Middleware Function
-const allowCors = (req, res, next) => {
-  res.setHeader('Access-Control-Allow-Credentials', true);
-  res.setHeader('Access-Control-Allow-Origin', '*');
-  res.setHeader('Access-Control-Allow-Methods', 'GET,OPTIONS,PATCH,DELETE,POST,PUT');
-  res.setHeader(
-    'Access-Control-Allow-Headers',
-    'X-CSRF-Token, X-Requested-With, Accept, Accept-Version, Content-Length, Content-MD5, Content-Type, Date, X-Api-Version'
-  );
-  
-  if (req.method === 'OPTIONS') {
-    res.status(200).end();
-    return;
-  }
-  
-  next();
+// Define CORS options for Express
+const corsOptions = {
+  origin: (origin, callback) => {
+    const allowedOrigins = ['http://localhost:3000', 'https://jobcom.website', 'https://jobcom-backend.vercel.app'];
+    if (allowedOrigins.includes(origin) || !origin) {
+      callback(null, true); // Allow the request if the origin is in the list or if there's no origin (non-browser requests)
+    } else {
+      callback(new Error('Not allowed by CORS')); // Reject the request otherwise
+    }
+  },
+  credentials: true, // Allow credentials (cookies, authorization headers)
 };
 
-//  CORS Middleware
-app.use(allowCors);
+// Enable CORS middleware
+app.use(cors(corsOptions));
 
+// Express JSON middleware
 app.use(express.json());
 
+// Define routes
 app.get("/", (req, res) => {
-  res.send("Welcome to the Jobcom website!");
+  res.send("Welcome to the Jobcom website! Everything is working well.");
 });
 
 app.use("/api/user-route", userRoute);
 app.use("/api/admin-route", adminRoute);
 
-// Disable strictQuery option
+// Disable strictQuery option for Mongoose
 dbConnection;
